@@ -1,17 +1,12 @@
 import React from 'react';
+import _ from 'lodash';
 
 import BookShelf from './BookShelf';
 
 const BookShelfList = ({ books }) => {
 
   // Generate list of unique shelf names
-  let shelfNames = books.map(({ shelf }) => shelf)
-    .reduce((shelves, shelf) => {
-      if (shelves.indexOf(shelf) < 0) {
-        shelves.push(shelf)
-      };
-      return shelves;
-    }, [])
+  let shelfNames = _.uniq(books.map(({ shelf }) => shelf))
 
   return (
     <div className="list-books-content">
@@ -19,7 +14,8 @@ const BookShelfList = ({ books }) => {
         {
           shelfNames.map(shelfName =>
             <BookShelf
-              title={shelfName}
+              key={shelfName}
+              title={_.startCase(shelfName)}
               books={books.filter(
                 (book) => book.shelf === shelfName
               )}
