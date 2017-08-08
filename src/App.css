@@ -172,3 +172,9 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+
+.error {
+  padding: 10px 0;
+  background: #ff727c;
+  text-align: center;
+}

@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import BookShelf from './BookShelf';
 
-const BookShelfList = ({ books , changeShelf=f=>f }) => {
+const BookShelfList = ({ books, error=null, changeShelf=f=>f }) => {
 
   const shelfNames = ["currentlyReading", "wantToRead", "read"];
 
@@ -14,6 +14,11 @@ const BookShelfList = ({ books , changeShelf=f=>f }) => {
       <div className="list-books-title">
         <h1>MyReads</h1>
       </div>
+      {error && (
+        <div className="error">
+          <h2>{error.message}</h2>
+        </div>
+      )}
       <div className="list-books-content">
         <div>
           {

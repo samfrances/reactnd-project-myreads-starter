@@ -7,7 +7,8 @@ import { Route } from 'react-router-dom';
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: [],
+    error: null
   }
 
   async componentDidMount() {
@@ -28,6 +29,11 @@ class BooksApp extends React.Component {
     this.setState({ books: updated_books })
 
     const shelves = await BooksAPI.update(book, shelfName)
+    console.log(shelves)
+    if (!shelves[shelfName] || !shelves[shelfName].includes(book.id)) {
+      const error = { message: "Error communicating with server."}
+      this.setState({ error })
+    }
   }
 
   render() {
@@ -37,6 +43,7 @@ class BooksApp extends React.Component {
           <BookShelfList
             books={this.state.books}
             changeShelf={this.changeShelf}
+            error={this.state.error}
           />
         )} />
         <Route path="/search" component={SearchPage} />
