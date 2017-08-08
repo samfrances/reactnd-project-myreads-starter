@@ -16,9 +16,11 @@ const BookShelfList = ({ books }) => {
             <BookShelf
               key={shelfName}
               title={_.startCase(shelfName)}
-              books={books.filter(
-                (book) => book.shelf === shelfName
-              )}
+              books={
+                books
+                  .filter((book) => book.shelf === shelfName)
+                  .map((book) => ({...book, shelfOptions: shelfNames}))
+              }
             />
           )
         }

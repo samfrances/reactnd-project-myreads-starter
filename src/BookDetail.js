@@ -1,6 +1,7 @@
 import React from 'react';
+import _ from 'lodash';
 
-const BookDetail = ({ title, author, coverURL }) =>
+const BookDetail = ({ title, author, coverURL, shelf, shelfOptions }) =>
   <li>
     <div className="book">
       <div className="book-top">
@@ -10,11 +11,15 @@ const BookDetail = ({ title, author, coverURL }) =>
           backgroundImage: `url("${coverURL}")`
         }}></div>
         <div className="book-shelf-changer">
-          <select>
+          <select value={shelf}>
             <option value="none" disabled>Move to...</option>
-            <option value="currentlyReading">Currently Reading</option>
-            <option value="wantToRead">Want to Read</option>
-            <option value="read">Read</option>
+            {
+              shelfOptions.map((option) =>
+                <option key={option} value={option}>
+                  {_.startCase(option)}
+                </option>
+              )
+            }
             <option value="none">None</option>
           </select>
         </div>

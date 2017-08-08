@@ -19,7 +19,7 @@ class BooksApp extends React.Component {
           shelf,
           id: industryIdentifiers[0].identifier,
           author: authors[0],
-          coverURL: imageLinks.smallThumbnail,
+          coverURL: imageLinks.thumbnail,
         })
     )
     this.setState({ books })
