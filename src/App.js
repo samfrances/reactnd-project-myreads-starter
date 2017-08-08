@@ -11,17 +11,13 @@ class BooksApp extends React.Component {
   }
 
   async componentDidMount() {
-    const booksData = await BooksAPI.getAll();
-    const books = booksData.map(
-      ({ title, industryIdentifiers, authors, imageLinks, shelf }) =>
-        ({
-          title,
-          shelf,
-          id: industryIdentifiers[0].identifier,
-          author: authors[0],
-          coverURL: imageLinks.thumbnail,
-        })
-    )
+    const books = await BooksAPI.getAll();
+    this.setState({ books })
+  }
+
+  async changeShelf(book, shelfName) {
+    const shelves = await BooksAPI.update(book, shelfName)
+    const books = await BooksAPI.getAll()
     this.setState({ books })
   }
 

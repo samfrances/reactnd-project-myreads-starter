@@ -8,12 +8,12 @@ const BookShelf = ({ title, books }) =>
     <div className="bookshelf-books">
       <ol className="books-grid">
         {
-          books.map(({ id, coverURL, title, author, shelf, shelfOptions }) => (
+          books.map(({ id, imageLinks, title, authors, shelf, shelfOptions }) => (
               <BookDetail
                 key={id}
-                coverURL={coverURL}
+                coverURL={imageLinks.thumbnail}
                 title={title}
-                author={author}
+                author={authors[0]}
                 shelf={shelf}
                 shelfOptions={shelfOptions}
               />
