@@ -1,33 +1,41 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import toTitleCase from 'titlecase';
 import _ from 'lodash';
 
 import BookShelf from './BookShelf';
 
-const BookShelfList = ({ books }) => {
+const BookShelfList = ({ books , changeShelf=f=>f }) => {
 
-  // Generate list of unique shelf names
-  let shelfNames = _.uniq(books.map(({ shelf }) => shelf))
+  const shelfNames = ["currentlyReading", "wantToRead", "read"];
 
   return (
-    <div className="list-books-content">
-      <div>
-        {
-          shelfNames.map(shelfName =>
-            <BookShelf
-              key={shelfName}
-              title={_.startCase(shelfName)}
-              books={
-                books
-                  .filter((book) => book.shelf === shelfName)
-                  .map((book) => ({...book, shelfOptions: shelfNames}))
-              }
-            />
-          )
-        }
+    <div className="list-books">
+      <div className="list-books-title">
+        <h1>MyReads</h1>
+      </div>
+      <div className="list-books-content">
+        <div>
+          {
+            shelfNames.map((shelfName, i) =>
+              <BookShelf
+                key={shelfName}
+                title={toTitleCase(_.startCase(shelfName))}
+                books={books.filter((book) => book.shelf === shelfName)}
+                shelfOptions={shelfNames}
+                changeShelf={changeShelf}
+              />
+            )
+          }
+        </div>
+      </div>
+      <div className="open-search">
+        <Link to="/search">Add a book</Link>
       </div>
     </div>
   );
 
 }
+
 
 export default BookShelfList;
