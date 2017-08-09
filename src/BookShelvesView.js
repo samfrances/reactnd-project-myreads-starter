@@ -5,7 +5,7 @@ import sleep from 'sleep-promise';
 import { titleCase } from './utils';
 import BookShelf from './BookShelf';
 
-class BookShelfView extends React.Component {
+class BookShelvesView extends React.Component {
 
   state = {
     error: null,
@@ -79,4 +79,4 @@ class BookShelfView extends React.Component {
 
 }
 
-export default BookShelfView;
+export default BookShelvesView;
