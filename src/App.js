@@ -1,13 +1,17 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
+
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 import BookShelvesView from './BookShelvesView';
 import SearchView from './SearchView';
-import { Route } from 'react-router-dom';
+
+
 
 class BooksApp extends React.Component {
   state = {
     myBooks: [],
+    booksToShelves: {},
     shelfNames: ["currentlyReading", "wantToRead", "read"]
   }
 
@@ -33,7 +37,10 @@ class BooksApp extends React.Component {
   /* Reload shelf state from the server */
   refreshShelves = async () => {
     const myBooksRefreshed = await BooksAPI.getAll();
-    this.setState({ myBooks: myBooksRefreshed })
+    const booksToShelves = Object.assign(
+      {}, ...myBooksRefreshed.map((book) => ({ [book.id]: book.shelf }))
+    )
+    this.setState({ myBooks: myBooksRefreshed, booksToShelves })
   }
 
   render() {
