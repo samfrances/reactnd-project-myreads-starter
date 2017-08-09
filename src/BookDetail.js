@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import toTitleCase from 'titlecase';
 
-const BookDetail = ({ book, shelfOptions, changeShelf=f=>f }) =>
+const BookDetail = ({ book, shelfOptions=[], changeShelf=f=>f }) =>
   <li>
     <div className="book">
       <div className="book-top">

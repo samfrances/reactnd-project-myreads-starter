@@ -29,7 +29,6 @@ class BooksApp extends React.Component {
     this.setState({ books: updated_books })
 
     const shelves = await BooksAPI.update(book, shelfName)
-    console.log(shelves)
     if (!shelves[shelfName] || !shelves[shelfName].includes(book.id)) {
       const error = { message: "Error communicating with server."}
       this.setState({ error })
@@ -46,7 +45,9 @@ class BooksApp extends React.Component {
             error={this.state.error}
           />
         )} />
-        <Route path="/search" component={SearchPage} />
+        <Route path="/search" render={() => (
+          <SearchPage changeShelf={this.changeShelf} />
+        )} />
       </div>
     )
   }
