@@ -174,7 +174,12 @@ body, .app {
 }
 
 .error {
+  background: #ff727c !important;
+}
+
+.notification {
   padding: 10px 0;
-  background: #ff727c;
+  background: #42f4f1;
   text-align: center;
+  font-size: 12pt;
 }
