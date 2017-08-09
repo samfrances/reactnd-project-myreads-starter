@@ -2,7 +2,7 @@ import React from 'react';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 import BookShelfView from './BookShelfView';
-import SearchPage from './SearchPage';
+import SearchView from './SearchView';
 import { Route } from 'react-router-dom';
 
 class BooksApp extends React.Component {
@@ -30,6 +30,7 @@ class BooksApp extends React.Component {
     return await BooksAPI.update(book, shelfName)
   }
 
+  /* Reload shelf state from the server */
   refreshShelves = async () => {
     const myBooksRefreshed = await BooksAPI.getAll();
     this.setState({ myBooks: myBooksRefreshed })
@@ -47,8 +48,9 @@ class BooksApp extends React.Component {
           />
         )} />
         <Route path="/search" render={() => (
-          <SearchPage
+          <SearchView
             myBooks={this.state.myBooks}
+            shelfNames={this.state.shelfNames}
             changeShelf={this.changeShelf}
           />
         )} />

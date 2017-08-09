@@ -9,10 +9,17 @@ const BookDetail = ({ book, shelfOptions=[], changeShelf=f=>f }) =>
         <div className="book-cover" style={{
           width: 128,
           height: 193,
-          backgroundImage: `url("${book.imageLinks.thumbnail}")`
+          backgroundImage: (
+            book.imageLinks
+              ? `url("${book.imageLinks.thumbnail}")`
+              : null
+          )
         }}></div>
         <div className="book-shelf-changer">
-          <select value={book.shelf} onChange={(e) => changeShelf(book, e.target.value)}>
+          <select
+            value={book.shelf || "none"}
+            onChange={(e) => changeShelf(book, e.target.value)}
+          >
             <option value="none" disabled>Move to...</option>
             {
               shelfOptions.map((option) =>
