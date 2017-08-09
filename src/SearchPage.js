@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import BookDetail from './BookDetail';
+import _ from 'lodash';
 
 class SearchPage extends React.Component {
 
@@ -10,21 +11,19 @@ class SearchPage extends React.Component {
     search_results: []
   }
 
-  update_query = async (value) => {
-    this.setState({ query: value})
-    if (value === "") {
-      this.setState({ search_results: [] })
-    } else {
-      try {
+  update_query = _.debounce(
+    async (value) => {
+      this.setState({ query: value})
+      if (value === "") {
+        this.setState({ search_results: [] })
+      } else {
         const results = await BooksAPI.search(value, 10)
-        if (this.state.query === value) {
-          this.setState({ search_results: results })
+        if (!results.error) {
+          this.setState({ search_results: results})
         }
-      } catch (e) {
-        this.setState({ search_results: []})
       }
-    }
-  }
+    }, 500
+  )
 
   render() {
     return (
