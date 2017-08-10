@@ -47,6 +47,7 @@ class SearchView extends React.Component {
                   book={result}
                   shelfOptions={this.props.shelfNames}
                   shelf={this.props.booksToShelves[result.id]}
+                  changeShelf={this.props.changeShelf}
                 />
               )
             }
