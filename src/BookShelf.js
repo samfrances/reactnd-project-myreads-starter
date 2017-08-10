@@ -1,10 +1,11 @@
 import React from 'react';
 
 import BookDetail from './BookDetail';
+import { titleCase } from './utils';
 
-const BookShelf = ({ title, books, shelfOptions, changeShelf=f=>f }) =>
+const BookShelf = ({ name, books, shelfOptions, changeShelf=f=>f }) =>
   <div className="bookshelf">
-    <h2 className="bookshelf-title">{title}</h2>
+    <h2 className="bookshelf-title">{titleCase(name)}</h2>
     <div className="bookshelf-books">
       <ol className="books-grid">
         {
@@ -12,6 +13,7 @@ const BookShelf = ({ title, books, shelfOptions, changeShelf=f=>f }) =>
             <BookDetail
               key={book.id}
               book={book}
+              shelf={name}
               shelfOptions={shelfOptions}
               changeShelf={changeShelf}
             />

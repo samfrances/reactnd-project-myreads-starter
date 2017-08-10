@@ -1,8 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
-import toTitleCase from 'titlecase';
 
-const BookDetail = ({ book, shelfOptions=[], changeShelf=f=>f }) =>
+import { titleCase } from './utils';
+
+const BookDetail = ({ book, shelf="none", shelfOptions=[], changeShelf=f=>f }) =>
   <li>
     <div className="book">
       <div className="book-top">
@@ -17,14 +18,14 @@ const BookDetail = ({ book, shelfOptions=[], changeShelf=f=>f }) =>
         }}></div>
         <div className="book-shelf-changer">
           <select
-            value={book.shelf || "none"}
+            value={shelf}
             onChange={(e) => changeShelf(book, e.target.value)}
           >
             <option value="none" disabled>Move to...</option>
             {
               shelfOptions.map((option) =>
                 <option key={option} value={option}>
-                  {toTitleCase(_.startCase(option))}
+                  {titleCase(option)}
                 </option>
               )
             }

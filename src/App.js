@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import _ from 'lodash';
 
 import * as BooksAPI from './BooksAPI';
 import './App.css';
@@ -21,15 +22,18 @@ class BooksApp extends React.Component {
 
   changeShelf = async (book, shelfName) => {
 
-    const book_id = book.id
-
-    const updated_books = this.state.myBooks.map(
-      (book) =>
-        book.id === book_id
-          ? ({...book, shelf: shelfName})
-          : ({...book})
-    )
-    this.setState({ myBooks: updated_books })
+    this.setState((prevState) => ({
+      booksToShelves: {
+        ...prevState.booksToShelves,
+        [book.id]: shelfName
+      },
+      // Add the book if it is new
+      myBooks: (
+        !prevState.myBooks.map(book => book.id).includes(book.id)
+          ? [...prevState.myBooks, book]
+          : prevState.myBooks
+      )
+    }));
 
     return await BooksAPI.update(book, shelfName)
   }
@@ -37,10 +41,13 @@ class BooksApp extends React.Component {
   /* Reload shelf state from the server */
   refreshShelves = async () => {
     const myBooksRefreshed = await BooksAPI.getAll();
+    const myBooks = myBooksRefreshed.map(book =>
+      _.omit(book, 'shelf')
+    )
     const booksToShelves = Object.assign(
       {}, ...myBooksRefreshed.map((book) => ({ [book.id]: book.shelf }))
     )
-    this.setState({ myBooks: myBooksRefreshed, booksToShelves })
+    this.setState({ myBooks, booksToShelves })
   }
 
   render() {
@@ -49,6 +56,7 @@ class BooksApp extends React.Component {
         <Route exact path="/" render={() => (
           <BookShelvesView
             myBooks={this.state.myBooks}
+            booksToShelves={this.state.booksToShelves}
             shelfNames={this.state.shelfNames}
             changeShelf={this.changeShelf}
             refreshShelves={this.refreshShelves}

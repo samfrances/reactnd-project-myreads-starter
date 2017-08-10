@@ -41,7 +41,7 @@ class BookShelvesView extends React.Component {
 
   render() {
 
-    const { myBooks, shelfNames } = this.props;
+    const { myBooks, booksToShelves, shelfNames } = this.props;
 
     return (
       <div className="list-books">
@@ -60,8 +60,12 @@ class BookShelvesView extends React.Component {
               shelfNames.map((shelfName, i) =>
                 <BookShelf
                   key={shelfName}
-                  title={titleCase(shelfName)}
-                  books={myBooks.filter((book) => book.shelf === shelfName)}
+                  name={shelfName}
+                  books={
+                    myBooks.filter(
+                      book => booksToShelves[book.id] === shelfName
+                    )
+                  }
                   shelfOptions={shelfNames}
                   changeShelf={this.changeShelf}
                 />
