@@ -65,6 +65,7 @@ class BooksApp extends React.Component {
         <Route path="/search" render={() => (
           <SearchView
             myBooks={this.state.myBooks}
+            booksToShelves={this.state.booksToShelves}
             shelfNames={this.state.shelfNames}
             changeShelf={this.changeShelf}
           />
