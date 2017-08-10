@@ -18,25 +18,38 @@ class BookShelvesView extends React.Component {
     this.props.refreshShelves()
   }
 
+  notify = async (message) => {
+    this.setState({
+      notification: message
+    });
+    await sleep(3000);
+    this.setState({ notification: null })
+  }
+
+  notify_error = async (message) => {
+    this.setState({
+        error: { message}
+    })
+    await Promise.all([
+      this.props.refreshShelves(),
+      sleep(3000)
+    ])
+    this.setState({ error: null })
+  }
+
   changeShelf = async (book, shelfName) => {
+
     const shelves = await this.props.changeShelf(book, shelfName)
+
     if (shelves[shelfName] && shelves[shelfName].includes(book.id)) {
-      this.setState({
-        notification: `"${book.title}" moved to "${titleCase(shelfName)}"`
-      })
-      await sleep(3000)
+      await this.notify(`"${book.title}" moved to "${titleCase(shelfName)}"`)
+    } else if (shelfName === "none") {
+      await this.notify(`Removed "${book.title}" from shelves`)
     } else {
-      this.setState({
-        error: {
-          message: `Error moving "${book.title}" to "${titleCase(shelfName)}". Reloading.`
-        }
-      })
-      await Promise.all([
-        this.props.refreshShelves(),
-        sleep(3000)
-      ])
+      this.notify_error(
+        `Error moving "${book.title}" to "${titleCase(shelfName)}". Reloading.`
+      )
     }
-    this.setState({ notification: null, error: null })
   }
 
   render() {
