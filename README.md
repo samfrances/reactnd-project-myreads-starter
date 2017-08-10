@@ -9,6 +9,16 @@ To run the project, `cd` to the base directory of the repository, and run:
 npm run start
 ```
 
+Third party code attributions, all from NPM:
+
+- lodash
+- prop-types
+- react"
+- react-dom"
+- react-router-dom
+- sleep-promise
+- titlecase
+
 
 ## Project instructions (archived)
 
