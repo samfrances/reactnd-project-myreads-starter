@@ -1,0 +1,9 @@
+extends: airbnb
+rules:
+  react/jsx-wrap-multilines: off
+  react/jsx-filename-extension: off
+  comma-dangle:
+    - error
+    - functions: ignore
+      arrays: always
+      objects: always
