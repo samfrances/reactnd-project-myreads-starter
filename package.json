@@ -9,6 +9,10 @@
     "titlecase": "^1.1.2"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.4.1",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-react": "^7.2.1",
     "react-scripts": "0.9.5"
   },
   "scripts": {
