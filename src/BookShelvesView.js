@@ -15,7 +15,7 @@ class BookShelvesView extends React.Component {
   componentDidMount() {
     /* When the bookshelf view is mounted (for example, when returning from
      * the search view), check for updates from the server */
-    this.props.refreshShelves()
+    this.props.refreshShelves();
   }
 
   notify = async (message) => {
@@ -23,32 +23,32 @@ class BookShelvesView extends React.Component {
       notification: message
     });
     await sleep(3000);
-    this.setState({ notification: null })
+    this.setState({ notification: null });
   }
 
   notify_error = async (message) => {
     this.setState({
-        error: { message}
-    })
+      error: { message}
+    });
     await Promise.all([
       this.props.refreshShelves(),
       sleep(3000)
-    ])
-    this.setState({ error: null })
+    ]);
+    this.setState({ error: null });
   }
 
   changeShelf = async (book, shelfName) => {
 
-    const shelves = await this.props.changeShelf(book, shelfName)
+    const shelves = await this.props.changeShelf(book, shelfName);
 
     if (shelves[shelfName] && shelves[shelfName].includes(book.id)) {
-      await this.notify(`"${book.title}" moved to "${titleCase(shelfName)}"`)
+      await this.notify(`"${book.title}" moved to "${titleCase(shelfName)}"`);
     } else if (shelfName === "none") {
-      await this.notify(`Removed "${book.title}" from shelves`)
+      await this.notify(`Removed "${book.title}" from shelves`);
     } else {
       this.notify_error(
         `Error moving "${book.title}" to "${titleCase(shelfName)}". Reloading.`
-      )
+      );
     }
   }
 
@@ -70,7 +70,7 @@ class BookShelvesView extends React.Component {
         <div className="list-books-content">
           <div>
             {
-              shelfNames.map((shelfName, i) =>
+              shelfNames.map(shelfName =>
                 <BookShelf
                   key={shelfName}
                   name={shelfName}

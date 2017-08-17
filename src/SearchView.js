@@ -14,11 +14,11 @@ class SearchView extends React.Component {
 
   update_query = _.debounce(
     async (value) => {
-      const results = await BooksAPI.search(value || " ", 10)
+      const results = await BooksAPI.search(value || " ", 10);
       if (!results || results.error) {
-        this.setState({ search_results: [] })
+        this.setState({ search_results: [] });
       } else {
-        this.setState({ search_results: results })
+        this.setState({ search_results: results });
       }
     }, 500
   )

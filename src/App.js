@@ -17,7 +17,7 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-    this.refreshShelves()
+    this.refreshShelves();
   }
 
   changeShelf = async (book, shelfName) => {
@@ -35,7 +35,7 @@ class BooksApp extends React.Component {
       )
     }));
 
-    return await BooksAPI.update(book, shelfName)
+    return await BooksAPI.update(book, shelfName);
   }
 
   /* Reload shelf state from the server */
@@ -43,11 +43,11 @@ class BooksApp extends React.Component {
     const myBooksRefreshed = await BooksAPI.getAll();
     const myBooks = myBooksRefreshed.map(book =>
       _.omit(book, 'shelf')
-    )
+    );
     const booksToShelves = Object.assign(
       {}, ...myBooksRefreshed.map((book) => ({ [book.id]: book.shelf }))
-    )
-    this.setState({ myBooks, booksToShelves })
+    );
+    this.setState({ myBooks, booksToShelves });
   }
 
   render() {
@@ -71,7 +71,7 @@ class BooksApp extends React.Component {
           />
         )} />
       </div>
-    )
+    );
   }
 }
 
