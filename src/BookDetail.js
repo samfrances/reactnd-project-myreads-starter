@@ -9,8 +9,6 @@ const BookDetail = ({ book, shelf = 'none', shelfOptions = [], changeShelf = f=>
         <div
           className="book-cover"
           style={{
-            width: 128,
-            height: 193,
             backgroundImage: (
               book.imageLinks
                 ? `url("${book.imageLinks.thumbnail}")`

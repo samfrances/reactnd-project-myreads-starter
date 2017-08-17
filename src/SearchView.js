@@ -20,7 +20,7 @@ class SearchView extends React.Component {
       } else {
         this.setState({ search_results: results });
       }
-    }, 500
+    }, 250
   )
 
   render() {
